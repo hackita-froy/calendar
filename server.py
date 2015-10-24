@@ -12,14 +12,15 @@ PORT = int(os.environ.get("PORT", 5000))
 
 cal = my_overrides.SelectableCalendar()
 
-def navigate(year, month):
+def navigate(year, month, day):
   return {
     'past_month': month % 13 -1 or 12,
     'past_year': year - (1 if month == 1 else 0),
     'next_month': month % 12 + 1,
     'next_year': year + month // 12,
     'current_year': year,
-    'curent_month': month
+    'current_month': month,
+    'day': day
   }
 
 def render_history(month, day):
@@ -42,7 +43,7 @@ def render_calendar(year=None, month=None, day=None ):
   if day is None:
     day = now.day
   return bottle.template('monthly_calendar', calendar=cal.formatmonth(year, month),
-    **navigate(year,month), **render_history(month, day))
+    **navigate(year,month, day), **render_history(month, day))
 
 @bottle.route('/<year:int>')
 def render_yearly_calendar(year=None):
