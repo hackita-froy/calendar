@@ -36,18 +36,19 @@ def server_static(filename):
 def render_calendar(year=None, month=None, day=None ):
   now = datetime.datetime.now()
   if year is None:
-    year = now.yer
+    year = now.year
   if month is None:
     month = now.month
   if day is None:
     day = now.day
-
   return bottle.template('monthly_calendar', calendar=cal.formatmonth(year, month),
     **navigate(year,month), **render_history(month, day))
 
-@bottle.route('/<year>')
-def render_yearly_calendar(year=now.year):
-  year = int(year)
+@bottle.route('/<year:int>')
+def render_yearly_calendar(year=None):
+  now = datetime.datetime.now()
+  if year is None:
+    year = now.year
   return bottle.template('yearly_calendar', calendar=cal.formatyear(year, 3))
 
 bottle.run(host='0.0.0.0', port=PORT, debug=True)

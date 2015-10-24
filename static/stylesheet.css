@@ -16,6 +16,11 @@ a{
     font-weight: 600;
 }
 
+a:active{
+  background-color: #333333;
+  color: #888888;
+}
+
 .nav{
     flex:auto;
     text-align:center;
