@@ -10,7 +10,6 @@ __author__ = 'David Fradis'
 
 PORT = int(os.environ.get("PORT", 5000))
 
-now = datetime.datetime.now()
 cal = my_overrides.SelectableCalendar()
 
 def navigate(year, month):
@@ -32,12 +31,17 @@ def server_static(filename):
   return bottle.static_file(filename, root='./static')
 
 @bottle.route('/')
-@bottle.route('/<year>/<month>')
-@bottle.route('<year>/<month>/<day>')
-def render_calendar(year=now.year, month=now.month, day=now.day ):
-  year = int(year)
-  month = int(month)
-  day = int(day)
+@bottle.route('/<year:int>/<month:int>')
+@bottle.route('/<year:int>/<month:int>/<day:int>')
+def render_calendar(year=None, month=None, day=None ):
+  now = datetime.datetime.now()
+  if year is None:
+    year = now.yer
+  if month is None:
+    month = now.month
+  if day is None:
+    day = now.day
+
   return bottle.template('monthly_calendar', calendar=cal.formatmonth(year, month),
     **navigate(year,month), **render_history(month, day))
 
