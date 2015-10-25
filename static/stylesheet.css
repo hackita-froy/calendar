@@ -16,10 +16,16 @@ a{
     font-weight: 600;
 }
 
-a:active{
+a:active, a:focus{
   background-color: #333333;
   color: #888888;
 }
+
+/*td:visited{
+  background-color: #333333;
+  color: #888888;
+}
+*/
 
 .nav{
     flex:auto;
