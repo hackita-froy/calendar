@@ -1,4 +1,4 @@
-bottle==0.12.8
+bottle==0.12.20
 decorator==4.0.4
 ipython==4.0.0
 ipython-genutils==0.1.0
